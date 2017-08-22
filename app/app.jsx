@@ -4,6 +4,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
+
+import Profile from './Profile.jsx';
 class App extends React.Component{
   constructor(props) {
     super(props);
@@ -13,6 +15,9 @@ class App extends React.Component{
     return (
         <div className="header">
       <h1>Jkwu,  Welcome You!!!!!!%%5eyyyyee5!</h1>
+      <div>
+        <Profile />
+      </div>
     </div>)
   }
 }

@@ -4,6 +4,7 @@
 const path = require('path');
 const webpack = require ("webpack");
 const HtmlWebpackPligin = require('html-webpack-plugin');
+const OpenBrowserPlugin = require('open-browser-webpack-plugin');
 
 // 一些常用的路径
 const ROOT_PATH = path.resolve(__dirname);
@@ -45,6 +46,7 @@ module.exports = {
     new HtmlWebpackPligin({
       title: 'My project is for practise with React'
     }),
+    new OpenBrowserPlugin({ url: 'http://localhost:8080' })
 ],
   // 开启dev-server
   devServer:{
