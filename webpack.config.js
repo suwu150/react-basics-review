@@ -46,7 +46,7 @@ module.exports = {
     new HtmlWebpackPligin({
       title: 'My project is for practise with React'
     }),
-    new OpenBrowserPlugin({ url: 'http://localhost:8080' })
+    // new OpenBrowserPlugin({ url: 'http://localhost:8080' })
 ],
   // 开启dev-server
   devServer:{

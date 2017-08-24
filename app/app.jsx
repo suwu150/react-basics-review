@@ -10,13 +10,22 @@ class App extends React.Component{
   constructor(props) {
     super(props);
   }
+  componentWillMount = () => {
+    this.setState({
+      name: 'jkwu',
+      age: 22
+    })
+  };
 
   render() {
     return (
-        <div className="header">
-      <h1>Jkwu,  Welcome You!!!!!!%%5eyyyyee5!</h1>
+      <div className="header">
+      <h1>Jkwu,  Welcome You!!!!!</h1>
       <div>
-        <Profile />
+        <Profile
+          name={this.state.name}
+          age={this.state.age}
+        />
       </div>
     </div>)
   }
