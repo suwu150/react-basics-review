@@ -28,7 +28,7 @@ module.exports = {
         loaders: ['style-loader', 'css-loader']
       },
       {
-        test: /\.js$/,
+        test: /\.js|\.jsx$/,
         exclude: /node_modules/,
         enforce: 'pre',
         use: [{loader: 'eslint-loader', options: {rules: {semi: 0}}}],
