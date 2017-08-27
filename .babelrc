@@ -1,6 +1,18 @@
 {
   "presets": ["es2015", "react", "stage-1"],
-  "plugins": ["transform-object-rest-spread"],
+  "plugins": ["transform-object-rest-spread",
+    ["import", { "libraryName": "bootstrap", "style": true }],
+    ["transform-imports", {
+      "react-bootstrap": {
+        "transform": "react-bootstrap/lib/${member}",
+        "preventFullImport": true
+      },
+      "lodash": {
+        "transform": "lodash/${member}",
+        "preventFullImport": true
+      }
+    }]
+  ],
   // 在开发的时候才启用下面这个配置
   "env": {
     "development": {

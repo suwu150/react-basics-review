@@ -9,7 +9,17 @@
     }
   },
   "rules": {
-    "comma-dangle": ["error", "never"],
-    "no-var": 0//禁用var，用let和const代替
+    "comma-dangle": [0, "never"],
+    "no-var": 0, //禁用var，用let和const代替,
+    "jsx-a11y/href-no-hash": 1,
+    "indent": 0,
+    "react/require-default-props": 0,
+    "react/no-string-refs": 0
+
+  },
+  "globals":{
+    "document": true,
+    "localStorage": true,
+    "window": true
   }
 }
