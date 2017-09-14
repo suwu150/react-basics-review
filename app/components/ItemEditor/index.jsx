@@ -3,8 +3,8 @@
  */
 
 /* eslint react/no-danger: 0 */
-import React from 'react';
-import PropTypes from 'prop-types';
+
+import React, { PropTypes } from 'react';
 import './style.scss';
 
 const propTypes = {

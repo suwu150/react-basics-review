@@ -1,123 +1,46 @@
 /*
- * @file component Deskmark
+ * @file component deskmark
  */
 
-import React from 'react';
-import uuid from 'uuid';
-
-import CreateBar from '../CreateBar';
-import List from '../List';
-import ItemEditor from '../ItemEditor';
-import ItemShowLayer from '../ItemShowLayer';
+import React, { PropTypes } from 'react';
+import CreateBar from '../CreateBar/index';
+import List from '../List/index';
+import ItemShowLayer from '../ItemShowLayer/index';
+import ItemEditor from '../ItemEditor/index';
 
 import './style.scss';
 
-export default class App extends React.Component {
-  constructor(props) {
-    super(props);
+const propTypes = {
+  state: PropTypes.object.isRequired,
+  actions: PropTypes.object.isRequired,
+};
 
-    this.state = {
-      items: [],
-      selectedId: null,
-      editing: false,
-    };
-
-    this.selectItem = this.selectItem.bind(this);
-    this.saveItem = this.saveItem.bind(this);
-    this.deleteItem = this.deleteItem.bind(this);
-    this.createItem = this.createItem.bind(this);
-    this.editItem = this.editItem.bind(this);
-    this.cancelEdit = this.cancelEdit.bind(this);
-  }
-
-  selectItem(id) {
-    if (id === this.state.selectedId) {
-      return;
-    }
-
-    this.setState({
-      selectedId: id,
-      editing: false,
-    });
-  }
-
-  saveItem(item) {
-    let items = this.state.items;
-
-    // new item
-    if (!item.id) {
-      items = [...items, {
-        ...item,
-        id: uuid.v4(),
-        time: new Date().getTime(),
-      }];
-    // existed item
-    } else {
-      items = items.map(
-        exist => (
-          exist.id === item.id
-          ? {
-            ...exist,
-            ...item,
-          }
-          : exist
-        )
-      );
-    }
-
-    this.setState({
-      items,
-      selectedId: item.id,
-      editing: false,
-    });
-  }
-
-  deleteItem(id) {
-    if (!id) {
-      return;
-    }
-
-    this.setState({
-      items: this.state.items.filter(
-        result => result.id !== id
-      ),
-    });
-  }
-
-  createItem() {
-    this.setState({
-      selectedId: null,
-      editing: true,
-    });
-  }
-
-  editItem(id) {
-    this.setState({
-      selectedId: id,
-      editing: true,
-    });
-  }
-
-  cancelEdit() {
-    this.setState({ editing: false });
+class Deskmark extends React.Component {
+  componentDidMount() {
+    this.props.actions.fetchEntryList();
   }
 
   render() {
-    const { items, selectedId, editing } = this.state;
-    const selected = selectedId && items.find(item => item.id === selectedId);
-    const mainPart = editing
+    const { state, actions } = this.props;
+    const { isEditing, selectedId } = state.editor;
+    const items = state.items;
+    const item = items.find(
+      ({ id }) => id === selectedId
+    );
+
+    const mainPart = isEditing
       ? (
         <ItemEditor
-          item={selected}
-          onSave={this.saveItem}
-          onCancel={this.cancelEdit}
+          item={item}
+          onSave={actions.saveEntry}
+          onCancel={actions.cancelEdit}
         />
       )
       : (
         <ItemShowLayer
-          item={selected}
-          onEdit={this.editItem}
-          onDelete={this.deleteItem}
+          item={item}
+          onEdit={actions.editEntry}
+          onDelete={actions.deleteEntry}
         />
       );
 
@@ -129,10 +52,10 @@ export default class App extends React.Component {
         <div className="container">
           <div className="row">
             <div className="col-md-4 list-group">
-              <CreateBar onClick={this.createItem} />
+              <CreateBar onClick={actions.createNewEntry} />
               <List
-                items={this.state.items}
-                onSelect={this.selectItem}
+                items={items}
+                onSelect={actions.selectEntry}
               />
             </div>
             {mainPart}
@@ -142,3 +65,7 @@ export default class App extends React.Component {
     );
   }
 }
+
+Deskmark.propTypes = propTypes;
+
+export default Deskmark;

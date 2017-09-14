@@ -66,6 +66,6 @@ module.exports = {
   // },
   //其他解决方案配置
   resolve: {
-    extensions: ['.js', '.jsx', '.json', '.css', '.scss']//添加在此的后缀所对应的文件可以省略后缀
+    extensions: ['.js', '*.jsx', '.jsx', '.json', '.css', '.scss']//添加在此的后缀所对应的文件可以省略后缀
   }
 };

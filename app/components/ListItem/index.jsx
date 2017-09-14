@@ -2,12 +2,11 @@
  * @file component Item
  */
 
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { PropTypes } from 'react';
 
 const propTypes = {
   item: PropTypes.object.isRequired,
-  onClick: PropTypes.func.isRequired
+  onClick: PropTypes.func.isRequired,
 };
 
 function ListItem({ item, onClick }) {
@@ -24,7 +23,7 @@ function ListItem({ item, onClick }) {
       <span className="label label-default label-pill pull-xs-right">
         {formatTime}
       </span>
-      <span className="item-title">{item.title}</span>
+      {item.title}
     </a>
   );
 }

@@ -2,9 +2,8 @@
  * @file component List
  */
 
-import React from 'react';
-import PropTypes from 'prop-types';
-import ListItem from '../ListItem';
+import React, { PropTypes } from 'react';
+import ListItem from '../ListItem/index';
 
 const propTypes = {
   items: PropTypes.array.isRequired,
