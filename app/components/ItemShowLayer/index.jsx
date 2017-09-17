@@ -3,14 +3,15 @@
  */
 
 /* eslint react/no-danger: 0 */
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import marked from 'marked';
 import './style.scss';
 
 const propTypes = {
   item: PropTypes.object,
-  onEdit: PropTypes.func.isRequired,
-  onDelete: PropTypes.func.isRequired,
+  onEdit: PropTypes.func,
+  onDelete: PropTypes.func,
 };
 
 function ItemShowLayer({ item, onEdit, onDelete }) {

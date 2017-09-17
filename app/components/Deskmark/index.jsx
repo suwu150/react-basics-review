@@ -2,7 +2,8 @@
  * @file component deskmark
  */
 
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import CreateBar from '../CreateBar/index';
 import List from '../List/index';
 import ItemShowLayer from '../ItemShowLayer/index';
@@ -11,8 +12,8 @@ import ItemEditor from '../ItemEditor/index';
 import './style.scss';
 
 const propTypes = {
-  state: PropTypes.object.isRequired,
-  actions: PropTypes.object.isRequired,
+  state: PropTypes.object,
+  actions: PropTypes.object,
 };
 
 class Deskmark extends React.Component {
@@ -23,26 +24,29 @@ class Deskmark extends React.Component {
   render() {
     const { state, actions } = this.props;
     const { isEditing, selectedId } = state.editor;
-    const items = state.items;
-    const item = items.find(
-      ({ id }) => id === selectedId
-    );
+    const detailedEntries = state.entries.detail;
+    const entryList = state.entries.list.data;
+    const entry = (
+            selectedId
+            && detailedEntries[selectedId]
+            && detailedEntries[selectedId].data
+        ) || null;
 
     const mainPart = isEditing
-      ? (
-        <ItemEditor
-          item={item}
-          onSave={actions.saveEntry}
-          onCancel={actions.cancelEdit}
-        />
-      )
-      : (
-        <ItemShowLayer
-          item={item}
-          onEdit={actions.editEntry}
-          onDelete={actions.deleteEntry}
-        />
-      );
+        ? (
+          <ItemEditor
+            item={entry}
+            onSave={actions.saveEntry}
+            onCancel={actions.cancelEdit}
+          />
+    )
+        : (
+          <ItemShowLayer
+            item={entry}
+            onEdit={actions.editEntry}
+            onDelete={actions.deleteEntry}
+          />
+    );
 
     return (
       <section className="deskmark-component">
@@ -54,7 +58,7 @@ class Deskmark extends React.Component {
             <div className="col-md-4 list-group">
               <CreateBar onClick={actions.createNewEntry} />
               <List
-                items={items}
+                items={entryList}
                 onSelect={actions.selectEntry}
               />
             </div>

@@ -4,13 +4,14 @@
 
 /* eslint react/no-danger: 0 */
 
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import './style.scss';
 
 const propTypes = {
   item: PropTypes.object,
-  onSave: PropTypes.func.isRequired,
-  onCancel: PropTypes.func.isRequired,
+  onSave: PropTypes.func,
+  onCancel: PropTypes.func,
 };
 
 class ItemEditor extends React.Component {

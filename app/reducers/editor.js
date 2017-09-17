@@ -1,28 +1,61 @@
 /*
- * @file reducers for editor state
+ * @file reducers for editor
  */
 
 import * as ActionTypes from '../actions';
 
 const initialState = {
-  selectedId: null,
   isEditing: false,
+  selectedId: null,
 };
 
-export default function editor(state = initialState, action) {
-  switch (action.type) {
+const { fulfilledOf } = ActionTypes;
+
+export default function (state = initialState, action) {
+  const { type, payload } = action;
+
+  switch (type) {
     case ActionTypes.SELECT_ENTRY:
-      return Object.assign({}, state, { selectedId: action.id });
-    case ActionTypes.UPDATE_SAVED_ENTRY:
-      return Object.assign({}, state, { selectedId: action.id, isEditing: false });
+      return {
+        ...state,
+        isEditing: false,
+        selectedId: payload,
+      };
+
     case ActionTypes.CREATE_NEW_ENTRY:
-      return Object.assign({}, state, { selectedId: null, isEditing: true });
+      return {
+        ...state,
+        isEditing: true,
+        selectedId: null,
+      };
+
     case ActionTypes.EDIT_ENTRY:
-      return Object.assign({}, state, { selectedId: action.id, isEditing: true });
-    case ActionTypes.FINISH_DELETE_ENTRY:
-      return Object.assign({}, state, { selectedId: null, isEditing: false });
+      return {
+        ...state,
+        isEditing: true,
+        selectedId: payload,
+      };
+
     case ActionTypes.CANCEL_EDIT:
-      return Object.assign({}, state, { isEditing: false });
+      return {
+        ...state,
+        isEditing: false,
+      };
+
+    case fulfilledOf(ActionTypes.SAVE_ENTRY):
+      return {
+        ...state,
+        isEditing: false,
+        selectedId: state.selectedId || payload.id,
+      };
+
+    case fulfilledOf(ActionTypes.DELETE_ENTRY):
+      return {
+        ...state,
+        isEditing: false,
+        selectedId: null,
+      };
+
     default:
       return state;
   }

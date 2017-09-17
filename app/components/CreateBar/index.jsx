@@ -1,12 +1,12 @@
 /*
  * @file component CreateBar
  */
-import React, { PropTypes } from 'react';
-
+import React from 'react';
+import PropTypes from 'prop-types';
 import './style.scss';
 
 const propTypes = {
-  onClick: PropTypes.func.isRequired,
+  onClick: PropTypes.func,
 };
 // eslint-disable
 function CreateBar({ onClick }) {

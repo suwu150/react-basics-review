@@ -1,12 +1,12 @@
 /*
  * @file component Item
  */
-
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 
 const propTypes = {
-  item: PropTypes.object.isRequired,
-  onClick: PropTypes.func.isRequired,
+  item: PropTypes.object,
+  onClick: PropTypes.func,
 };
 
 function ListItem({ item, onClick }) {

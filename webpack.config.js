@@ -13,8 +13,8 @@ const BUILD_PATH = path.resolve(ROOT_PATH, 'build');
 
 module.exports = {
   // 开启代码源调试功能
-  // devtool: 'inline-source-map',
-  devtool: 'eval-source-map',
+  devtool: 'inline-source-map',
+  // devtool: 'eval-source-map',
   entry: path.resolve(APP_PATH, 'app.jsx'),
   output: {
     path: BUILD_PATH,
@@ -55,7 +55,14 @@ module.exports = {
     historyApiFallback:true,
     inline:true,
     hot:true,
-    port: 8080,
+    proxy: {
+      '/api/*': {
+        target: 'http://localhost:3000/',
+        rewrite: function(req) {
+          req.url = req.url.replace(/^\/api/, '');
+        }
+      }
+    }
     // progress: true
   },
   // resolve:{
